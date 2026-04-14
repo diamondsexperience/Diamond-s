@@ -4,18 +4,19 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Diamond’s — Momente șlefuite perfect</title>
-  <meta name="description" content="Diamond’s — evenimente premium, exclusivitate, atmosferă și experiențe memorabile." />
+  <meta name="description" content="Diamond’s — evenimente premium, exclusivitate și experiențe memorabile." />
+
   <style>
     :root{
-      --bg:#050506;
-      --bg-soft:#0b0b0e;
+      --bg:#070709;
+      --bg-soft:#101014;
       --text:#ffffff;
-      --muted:rgba(255,255,255,0.72);
+      --muted:rgba(255,255,255,0.76);
       --line:rgba(255,255,255,0.10);
       --glass:rgba(255,255,255,0.06);
-      --glass-strong:rgba(255,255,255,0.10);
-      --shadow:0 18px 45px rgba(0,0,0,0.35);
-      --radius:24px;
+      --glass-strong:rgba(255,255,255,0.09);
+      --radius:26px;
+      --shadow:0 18px 50px rgba(0,0,0,0.30);
       --max:1200px;
     }
 
@@ -31,8 +32,8 @@
 
     body{
       font-family: Inter, Arial, sans-serif;
-      background: var(--bg);
-      color: var(--text);
+      background:var(--bg);
+      color:var(--text);
       overflow-x:hidden;
     }
 
@@ -42,8 +43,8 @@
     }
 
     img{
-      max-width:100%;
       display:block;
+      max-width:100%;
     }
 
     .container{
@@ -52,4 +53,625 @@
     }
 
     header{
-      position:fixed
+      position:fixed;
+      top:0;
+      left:0;
+      width:100%;
+      z-index:1000;
+      background:rgba(7,7,9,0.28);
+      backdrop-filter:blur(14px);
+      border-bottom:1px solid rgba(255,255,255,0.05);
+      transition:0.25s ease;
+    }
+
+    header.scrolled{
+      background:rgba(7,7,9,0.78);
+      border-bottom:1px solid rgba(255,255,255,0.09);
+    }
+
+    .nav{
+      min-height:82px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+
+    .brand img{
+      width:50px;
+      height:50px;
+      object-fit:contain;
+    }
+
+    .brand span{
+      font-size:0.98rem;
+      font-weight:700;
+      letter-spacing:0.18em;
+      text-transform:uppercase;
+    }
+
+    .nav-links{
+      list-style:none;
+      display:flex;
+      align-items:center;
+      gap:28px;
+    }
+
+    .nav-links a{
+      color:var(--muted);
+      font-size:0.96rem;
+      transition:0.2s ease;
+    }
+
+    .nav-links a:hover{
+      color:#fff;
+    }
+
+    .menu-btn{
+      display:none;
+      background:none;
+      border:none;
+      color:#fff;
+      font-size:1.75rem;
+      cursor:pointer;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:52px;
+      padding:0 22px;
+      border-radius:999px;
+      font-weight:700;
+      transition:0.25s ease;
+      border:1px solid transparent;
+      cursor:pointer;
+    }
+
+    .btn-primary{
+      background:linear-gradient(135deg, #ffffff, #d8d8de);
+      color:#09090b;
+      box-shadow:0 10px 28px rgba(255,255,255,0.12);
+    }
+
+    .btn-primary:hover{
+      transform:translateY(-2px);
+      box-shadow:0 14px 34px rgba(255,255,255,0.18);
+    }
+
+    .btn-secondary{
+      background:rgba(255,255,255,0.05);
+      border-color:rgba(255,255,255,0.12);
+      color:#fff;
+    }
+
+    .btn-secondary:hover{
+      background:rgba(255,255,255,0.09);
+      transform:translateY(-2px);
+    }
+
+    .hero{
+      position:relative;
+      min-height:100vh;
+      display:flex;
+      align-items:flex-end;
+      overflow:hidden;
+      background:#000;
+    }
+
+    .hero-bg{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      object-position:center;
+      filter:brightness(0.88);
+      transform:scale(1.02);
+    }
+
+    .hero-overlay{
+      position:absolute;
+      inset:0;
+      background:
+        linear-gradient(to bottom, rgba(0,0,0,0.08), rgba(0,0,0,0.22) 45%, rgba(7,7,9,0.88) 100%);
+      z-index:1;
+    }
+
+    .hero-content{
+      position:relative;
+      z-index:2;
+      width:100%;
+      padding:150px 0 90px;
+    }
+
+    .hero-inner{
+      max-width:700px;
+    }
+
+    .hero-logo{
+      width:92px;
+      margin-bottom:24px;
+    }
+
+    .eyebrow{
+      display:inline-block;
+      padding:9px 14px;
+      border-radius:999px;
+      background:rgba(255,255,255,0.08);
+      border:1px solid rgba(255,255,255,0.10);
+      color:rgba(255,255,255,0.86);
+      font-size:0.76rem;
+      letter-spacing:0.16em;
+      text-transform:uppercase;
+      margin-bottom:18px;
+    }
+
+    h1{
+      font-size:clamp(3rem, 8vw, 6.2rem);
+      line-height:0.94;
+      letter-spacing:-0.05em;
+      margin-bottom:16px;
+      text-wrap:balance;
+    }
+
+    .hero-subtitle{
+      max-width:560px;
+      color:var(--muted);
+      font-size:1.06rem;
+      line-height:1.7;
+      margin-bottom:28px;
+    }
+
+    .hero-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:14px;
+    }
+
+    section{
+      padding:96px 0;
+    }
+
+    .section-label{
+      display:block;
+      margin-bottom:14px;
+      color:rgba(255,255,255,0.58);
+      font-size:0.80rem;
+      letter-spacing:0.16em;
+      text-transform:uppercase;
+    }
+
+    .section-title{
+      max-width:760px;
+      font-size:clamp(2rem, 4vw, 3.25rem);
+      line-height:1.02;
+      letter-spacing:-0.04em;
+      margin-bottom:14px;
+      text-wrap:balance;
+    }
+
+    .section-text{
+      max-width:720px;
+      color:var(--muted);
+      font-size:1.02rem;
+      line-height:1.75;
+    }
+
+    .cards{
+      display:grid;
+      grid-template-columns:repeat(3, 1fr);
+      gap:22px;
+      margin-top:36px;
+    }
+
+    .card{
+      background:var(--glass);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      padding:28px;
+      box-shadow:var(--shadow);
+      backdrop-filter:blur(10px);
+    }
+
+    .card h3{
+      font-size:1.08rem;
+      margin-bottom:10px;
+    }
+
+    .card p{
+      color:var(--muted);
+      line-height:1.7;
+    }
+
+    .feature{
+      display:grid;
+      grid-template-columns:1.1fr 0.9fr;
+      gap:24px;
+      align-items:stretch;
+      margin-top:36px;
+    }
+
+    .feature-image{
+      position:relative;
+      min-height:460px;
+      border-radius:30px;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,0.10);
+      box-shadow:var(--shadow);
+      background:#0d0d12;
+    }
+
+    .feature-image img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      object-position:center;
+    }
+
+    .feature-image::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:linear-gradient(to top, rgba(0,0,0,0.55), rgba(0,0,0,0.04));
+    }
+
+    .feature-badge{
+      position:absolute;
+      left:22px;
+      bottom:22px;
+      z-index:2;
+      padding:11px 16px;
+      border-radius:999px;
+      background:rgba(255,255,255,0.08);
+      border:1px solid rgba(255,255,255,0.12);
+      backdrop-filter:blur(10px);
+      font-size:0.90rem;
+    }
+
+    .stack{
+      display:grid;
+      gap:22px;
+    }
+
+    .statement{
+      padding:30px 28px;
+      border-radius:28px;
+      background:linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.04));
+      border:1px solid rgba(255,255,255,0.10);
+      box-shadow:var(--shadow);
+    }
+
+    .statement p{
+      color:#f4f4f6;
+      font-size:1.05rem;
+      line-height:1.8;
+    }
+
+    .cta-box{
+      margin-top:12px;
+      padding:56px 24px;
+      text-align:center;
+      border-radius:34px;
+      background:linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.04));
+      border:1px solid rgba(255,255,255,0.11);
+      box-shadow:var(--shadow);
+      position:relative;
+      overflow:hidden;
+    }
+
+    .cta-box::before{
+      content:"";
+      position:absolute;
+      width:260px;
+      height:260px;
+      border-radius:50%;
+      top:-90px;
+      right:-90px;
+      background:radial-gradient(circle, rgba(255,255,255,0.14), transparent 70%);
+      pointer-events:none;
+    }
+
+    .cta-box h2{
+      position:relative;
+      z-index:1;
+      font-size:clamp(2rem, 4vw, 3.3rem);
+      line-height:1.02;
+      margin-bottom:14px;
+      text-wrap:balance;
+    }
+
+    .cta-box p{
+      position:relative;
+      z-index:1;
+      max-width:620px;
+      margin:0 auto 28px;
+      color:var(--muted);
+      line-height:1.75;
+    }
+
+    footer{
+      padding:28px 0 40px;
+      border-top:1px solid rgba(255,255,255,0.06);
+    }
+
+    .footer-wrap{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      flex-wrap:wrap;
+      color:rgba(255,255,255,0.58);
+      font-size:0.94rem;
+    }
+
+    .reveal{
+      opacity:0;
+      transform:translateY(26px);
+      transition:opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal.visible{
+      opacity:1;
+      transform:translateY(0);
+    }
+
+    @media (max-width: 980px){
+      .nav-links{
+        display:none;
+        position:absolute;
+        top:82px;
+        left:16px;
+        right:16px;
+        flex-direction:column;
+        align-items:flex-start;
+        gap:18px;
+        padding:20px;
+        border-radius:22px;
+        background:rgba(9,9,11,0.96);
+        border:1px solid rgba(255,255,255,0.08);
+      }
+
+      .nav-links.show{
+        display:flex;
+      }
+
+      .menu-btn{
+        display:block;
+      }
+
+      .desktop-only{
+        display:none;
+      }
+
+      .cards,
+      .feature{
+        grid-template-columns:1fr;
+      }
+
+      .feature-image{
+        min-height:360px;
+      }
+    }
+
+    @media (max-width: 640px){
+      .nav{
+        min-height:76px;
+      }
+
+      .brand img{
+        width:44px;
+        height:44px;
+      }
+
+      .hero-content{
+        padding:132px 0 72px;
+      }
+
+      .hero-actions{
+        flex-direction:column;
+      }
+
+      .btn{
+        width:100%;
+      }
+
+      .card,
+      .statement{
+        padding:24px;
+      }
+
+      .cta-box{
+        padding:42px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header id="header">
+    <div class="container nav">
+      <a href="#home" class="brand">
+        <img src="https://i.ibb.co/Wp0qX52R/Design-f-r-titlu.png" alt="Logo Diamond’s">
+        <span>Diamond’s</span>
+      </a>
+
+      <button class="menu-btn" id="menuBtn" aria-label="Deschide meniul">☰</button>
+
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#about">Despre</a></li>
+        <li><a href="#identity">Identitate</a></li>
+        <li><a href="#tickets">Bilete</a></li>
+      </ul>
+
+      <a class="btn btn-primary desktop-only" href="https://exemplu-bilete.ro" target="_blank" rel="noopener noreferrer">
+        Cumpără bilete
+      </a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <img
+        class="hero-bg"
+        src="https://i.ibb.co/6zGqgN0/Momente-lefuite-perfect.png"
+        alt="Fundal Diamond’s"
+      >
+      <div class="hero-overlay"></div>
+
+      <div class="container hero-content">
+        <div class="hero-inner reveal">
+          <img
+            class="hero-logo"
+            src="https://i.ibb.co/Wp0qX52R/Design-f-r-titlu.png"
+            alt="Logo Diamond’s"
+          >
+
+          <span class="eyebrow">Luxury Events • VIP Experience</span>
+
+          <h1>Momente șlefuite perfect</h1>
+
+          <p class="hero-subtitle">
+            Un univers premium în care imaginea, atmosfera și exclusivitatea se întâlnesc într-o experiență memorabilă.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="https://exemplu-bilete.ro" target="_blank" rel="noopener noreferrer">
+              Cumpără bilete
+            </a>
+            <a class="btn btn-secondary" href="#about">
+              Descoperă brandul
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="container">
+        <span class="section-label reveal">Despre</span>
+        <h2 class="section-title reveal">Diamond’s transformă fiecare eveniment într-o apariție.</h2>
+        <p class="section-text reveal">
+          Totul este gândit să transmită prezență, rafinament și acel sentiment că faci parte din ceva dorit.
+        </p>
+
+        <div class="cards">
+          <div class="card reveal">
+            <h3>Atmosferă</h3>
+            <p>
+              Lumină, energie și ritm într-un echilibru care se simte din primul moment.
+            </p>
+          </div>
+
+          <div class="card reveal">
+            <h3>Imagine</h3>
+            <p>
+              Un limbaj vizual curat, premium și memorabil, construit pentru impact.
+            </p>
+          </div>
+
+          <div class="card reveal">
+            <h3>Exclusivitate</h3>
+            <p>
+              Fiecare experiență este creată să pară specială, rară și imposibil de ignorat.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="identity">
+      <div class="container">
+        <span class="section-label reveal">Identitate</span>
+        <h2 class="section-title reveal">Black premium. Silver futuristic. Energie de scenă.</h2>
+        <p class="section-text reveal">
+          Vibe-ul Diamond’s este definit de contraste curate, lumini reci și o estetică luxury care se simte instant.
+        </p>
+
+        <div class="feature">
+          <div class="feature-image reveal">
+            <img src="https://i.ibb.co/6zGqgN0/Momente-lefuite-perfect.png" alt="Vibe Diamond’s">
+            <div class="feature-badge">Momente șlefuite perfect</div>
+          </div>
+
+          <div class="stack">
+            <div class="statement reveal">
+              <p>
+                Diamond’s aduce împreună moda, scena și atmosfera într-o formă modernă, elegantă și aspiratională.
+              </p>
+            </div>
+
+            <div class="statement reveal">
+              <p>
+                Fiecare apariție a brandului trebuie să inspire statut, energie și memorabilitate.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="tickets">
+      <div class="container">
+        <div class="cta-box reveal">
+          <h2>Intră în universul Diamond’s.</h2>
+          <p>
+            Rezervă-ți locul și fii parte din următoarea experiență.
+          </p>
+          <a class="btn btn-primary" href="https://exemplu-bilete.ro" target="_blank" rel="noopener noreferrer">
+            Mergi la bilete
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-wrap">
+      <div>© 2026 Diamond’s</div>
+      <div>Momente șlefuite perfect</div>
+    </div>
+  </footer>
+
+  <script>
+    const menuBtn = document.getElementById("menuBtn");
+    const navLinks = document.getElementById("navLinks");
+    const header = document.getElementById("header");
+
+    menuBtn.addEventListener("click", () => {
+      navLinks.classList.toggle("show");
+    });
+
+    document.querySelectorAll(".nav-links a").forEach(link => {
+      link.addEventListener("click", () => {
+        navLinks.classList.remove("show");
+      });
+    });
+
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 20) {
+        header.classList.add("scrolled");
+      } else {
+        header.classList.remove("scrolled");
+      }
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

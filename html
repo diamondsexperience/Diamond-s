@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Diamond’s — Momente șlefuite perfect</title>
+  <meta name="description" content="Diamond’s creează evenimente premium, exclusiviste și memorabile. Momente șlefuite perfect." />
+  <style>
+    :root {
+      --bg: #070709;
+      --bg-soft: #0d0d12;
+      --card: rgba(255, 255, 255, 0.06);
+      --card-border: rgba(255, 255, 255, 0.12);
+      --text: #f5f5f7;
+      --muted: #b8b8c2;
+      --accent: #d9d9df;
+      --accent-strong: #ffffff;
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+      --radius: 22px;
+      --max-width: 1200px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Inter", "Segoe UI", Arial, sans-serif;
+      background:
+        radial-gradient(circle at top, rgba(255,255,255,0.08), transparent 28%),
+        radial-gradient(circle at 80% 20%, rgba(255,255,255,0.06), transparent 20%),
+        linear-gradient(180deg, #050506 0%, #0b0b10 40%, #050506 100%);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(100% - 32px, var(--max-width));
+      margin: 0 auto;
+    }
+
+    .blur-orb {
+      position: fixed;
+      width: 360px;
+      height: 360px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,255,255,0.08), transparent 65%);
+      filter: blur(30px);
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .orb-1 {
+      top: -80px;
+      left: -80px;
+    }
+
+    .orb-2 {
+      bottom: -100px;
+      right: -60px;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(18px);
+      background: rgba(5, 5, 8, 0.6);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 76px;
+      gap: 20px;
+    }
+
+    .logo {
+      font-size: 1.2rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent-strong);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      font-size: 0.96rem;
+      transition: 0.25s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent-strong);
+    }
+
+    .nav-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 18px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.18), rgba(255,255,255,0.08));
+      border: 1px solid rgba(255,255,255,0.16);
+      color: #fff;
+      font-weight: 600;
+      transition: transform 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+      box-shadow: 0 8px 24px rgba(255,255,255,0.08);
+    }
+
+    .nav-cta:hover {
+      transform: translateY(-2px);
+      background: linear-gradient(135deg, rgba(255,255,255,0.22), rgba(255,255,255,0.1));
+    }
+
+    .menu-btn {
+      display: none;
+      background: transparent;
+      border: none;
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 90px 0 60px;
+      position: relative;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      margin-bottom: 18px;
+      padding: 8px 14px;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 999px;
+      color: var(--muted);
+      background: rgba(255,255,255,0.04);
+      font-size: 0.85rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .hero h1 {
+      font-size: clamp(3rem, 7vw, 6rem);
+      line-height: 0.96;
+      letter-spacing: -0.04em;
+      margin-bottom: 18px;
+    }
+
+    .hero h1 span {
+      display: block;
+      color: #ffffff;
+      text-shadow: 0 0 24px rgba(255,255,255,0.08);
+    }
+
+    .hero p {
+      max-width: 640px;
+      color: var(--muted);
+      font-size: 1.08rem;
+      margin-bottom: 28px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 26px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 52px;
+      padding: 0 22px;
+      border-radius: 999px;
+      font-weight: 600;
+      transition: 0.25s ease;
+      border: 1px solid transparent;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      color: #050506;
+      background: linear-gradient(135deg, #ffffff, #cfcfd6);
+      box-shadow: 0 12px 28px rgba(255,255,255,0.15);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 34px rgba(255,255,255,0.2);
+    }
+
+    .btn-secondary {
+      color: #fff;
+      background: rgba(255,255,255,0.04);
+      border-color: rgba(255,255,255,0.14);
+    }
+
+    .btn-secondary:hover {
+      transform: translateY(-2px);
+      background: rgba(255,255,255,0.08);
+    }
+
+    .hero-note {
+      color: #d5d5de;
+      font-size: 0.95rem;
+    }
+
+    .hero-visual {
+      position: relative;
+      min-height: 520px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .diamond-wrap {
+      position: relative;
+      width: min(100%, 430px);
+      aspect-ratio: 1 / 1.15;
+      border-radius: 36px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02)),
+        rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.12);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .diamond-wrap::before,
+    .diamond-wrap::after {
+      content: "";
+      position: absolute;
+      inset: auto;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,255,255,0.22), transparent 65%);
+      filter: blur(20px);
+    }
+
+    .diamond-wrap::before {
+      width: 200px;
+      height: 200px;
+      top: -40px;
+      right: -20px;
+    }
+
+    .diamond-wrap::after {
+      width: 180px;
+      height: 180px;
+      bottom: -30px;
+      left: -20px;
+    }
+
+    .diamond-shape {
+      position: absolute;
+      inset: 0;
+      margin: auto;
+      width: 220px;
+      height: 220px;
+      background: linear-gradient(145deg, rgba(255,255,255,0.95), rgba(180,180,190,0.18));
+      clip-path: polygon(50% 0%, 85% 25%, 100% 55%, 70% 100%, 30% 100%, 0% 55%, 15% 25%);
+      box-shadow:
+        0 0 35px rgba(255,255,255,0.2),
+        inset 0 0 20px rgba(255,255,255,0.45);
+      animation: floatDiamond 5s ease-in-out infinite;
+    }
+
+    .diamond-shine {
+      position: absolute;
+      width: 140px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.95), transparent);
+      top: 28%;
+      left: -10%;
+      transform: rotate(-18deg);
+      animation: shine 4s linear infinite;
+    }
+
+    @keyframes floatDiamond {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-14px) rotate(1deg); }
+    }
+
+    @keyframes shine {
+      0% { transform: translateX(-40px) rotate(-18deg); opacity: 0; }
+      20% { opacity: 1; }
+      50% { opacity: 1; }
+      100% { transform: translateX(360px) rotate(-18deg); opacity: 0; }
+    }
+
+    section {
+      padding: 100px 0;
+    }
+
+    .section-head {
+      max-width: 760px;
+      margin-bottom: 28px;
+    }
+
+    .section-head .tag {
+      display: inline-block;
+      margin-bottom: 14px;
+      color: #d8d8dd;
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .section-head h2 {
+      font-size: clamp(2rem, 4vw, 3.3rem);
+      line-height: 1.02;
+      margin-bottom: 14px;
+    }
+
+    .section-head p {
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+
+    .story {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .glass-card {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 28px;
+      box-shadow: var(--shadow);
+    }
+
+    .glass-card h3 {
+      font-size: 1.25rem;
+      margin-bottom: 12px;
+    }
+
+    .glass-card p {
+      color: var(--muted);
+    }
+
+    .identity-block {
+      display: grid;
+      grid-template-columns: 0.95fr 1.05fr;
+      gap: 26px;
+      align-items: stretch;
+    }
+
+    .visual-panel {
+      min-height: 420px;
+      border-radius: 28px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02)),
+        radial-gradient(circle at top left, rgba(255,255,255,0.10), transparent 30%),
+        #0b0b10;
+      border: 1px solid rgba(255,255,255,0.12);
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .visual-panel::before {
+      content: "DIAMOND’S";
+      position: absolute;
+      bottom: 26px;
+      left: 26px;
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      color: rgba(255,255,255,0.13);
+    }
+
+    .visual-panel::after {
+      content: "";
+      position: absolute;
+      inset: 18% 18%;
+      border-radius: 24px;
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: inset 0 0 60px rgba(255,255,255,0.05);
+    }
+
+    .copy-panel {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 18px;
+    }
+
+    .copy-panel p {
+      color: var(--muted);
+      font-size: 1.03rem;
+    }
+
+    .experience {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .experience .glass-card {
+      min-height: 220px;
+    }
+
+    .experience-number {
+      font-size: 2.4rem;
+      line-height: 1;
+      color: rgba(255,255,255,0.92);
+      margin-bottom: 14px;
+    }
+
+    .cta-section {
+      padding: 110px 0;
+    }
+
+    .cta-box {
+      border-radius: 32px;
+      padding: 42px;
+      background:
+        radial-gradient(circle at top, rgba(255,255,255,0.1), transparent 28%),
+        linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03));
+      border: 1px solid rgba(255,255,255,0.14);
+      box-shadow: var(--shadow);
+      text-align: center;
+    }
+
+    .cta-box h2 {
+      font-size: clamp(2rem, 4vw, 3.4rem);
+      margin-bottom: 16px;
+      line-height: 1.02;
+    }
+
+    .cta-box p {
+      max-width: 720px;
+      margin: 0 auto 28px;
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+
+    footer {
+      padding: 34px 0 40px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .footer-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 980px) {
+      .hero-grid,
+      .story,
+      .identity-block,
+      .experience {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        min-height: auto;
+        padding-top: 70px;
+      }
+
+      .hero-visual {
+        min-height: 420px;
+      }
+
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 76px;
+        right: 16px;
+        left: 16px;
+        flex-direction: column;
+        background: rgba(7, 7, 9, 0.96);
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 20px;
+        padding: 16px;
+      }
+
+      .nav-links.show {
+        display: flex;
+      }
+
+      .menu-btn {
+        display: block;
+      }
+
+      .nav-cta.desktop-only {
+        display: none;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .hero h1 {
+        font-size: 2.8rem;
+      }
+
+      .cta-box,
+      .glass-card {
+        padding: 24px;
+      }
+
+      .btn {
+        width: 100%;
+      }
+
+      .hero-actions {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="blur-orb orb-1"></div>
+  <div class="blur-orb orb-2"></div>
+
+  <header>
+    <div class="container nav">
+      <a href="#home" class="logo">Diamond’s</a>
+
+      <button class="menu-btn" id="menuBtn" aria-label="Deschide meniul">
+        ☰
+      </button>
+
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#about">Despre</a></li>
+        <li><a href="#identity">Identitate</a></li>
+        <li><a href="#experience">Experiență</a></li>
+        <li><a href="#tickets">Bilete</a></li>
+      </ul>
+
+      <a class="nav-cta desktop-only" href="https://exemplu-bilete.ro" target="_blank" rel="noopener noreferrer">
+        Cumpără bilete
+      </a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="container hero-grid">
+        <div class="hero-copy reveal">
+          <span class="eyebrow">Luxury Events • VIP Experiences</span>
+          <h1>
+            Momente
+            <span>șlefuite perfect</span>
+          </h1>
+          <p>
+            Diamond’s transformă fiecare eveniment într-o experiență exclusivistă, construită cu rafinament,
+            energie și impact vizual. Nu este doar o noapte în oraș. Este un univers în care luxul,
+            atmosfera și apartenența se întâlnesc într-o formă nouă.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="https://exemplu-bilete.ro" target="_blank" rel="noopener noreferrer">
+              Cumpără bilete
+            </a>
+            <a class="btn btn-secondary" href="#about">
+              Descoperă brandul
+            </a>
+          </div>
+
+          <div class="hero-note">
+            Diamond’s creează experiențe premium pentru un public care caută originalitate, exclusivitate și memorabilitate.
+          </div>
+        </div>
+
+        <div class="hero-visual reveal">
+          <div class="diamond-wrap">
+            <div class="diamond-shape"></div>
+            <div class="diamond-shine"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="tag">Despre brand</span>
+          <h2>O prezentare care nu doar explică, ci transmite.</h2>
+          <p>
+            Diamond’s s-a născut din dorința de a redefini evenimentele premium într-un limbaj vizual și emoțional nou.
+            Într-un spațiu în care multe concepte se repetă, brandul aduce o direcție clară: eleganță rece, exclusivitate reală
+            și experiențe care rămân în memorie.
+          </p>
+        </div>
+
+        <div class="story">
+          <div class="glass-card reveal">
+            <h3>Mai mult decât organizare</h3>
+            <p>
+              Pentru Diamond’s, un eveniment nu începe în momentul în care se deschid ușile, ci din prima secundă în care
+              publicul vede identitatea lui. Fiecare detaliu trebuie să creeze anticipare, dorință și impresia că urmează
+              ceva rar, atent construit și imposibil de confundat.
+            </p>
+          </div>
+
+          <div class="glass-card reveal">
+            <h3>De ce “Momente șlefuite perfect”</h3>
+            <p>
+              Așa cum un diamant își capătă valoarea prin șlefuire, fiecare experiență Diamond’s este rafinată până la cel
+              mai mic detaliu. Sloganul brandului nu este doar o expresie vizuală, ci promisiunea că tot ceea ce publicul vede,
+              simte și trăiește este construit cu precizie.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="identity">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="tag">Identitate</span>
+          <h2>Black premium, silver futuristic, o energie care se simte instant.</h2>
+          <p>
+            Vibe-ul Diamond’s este definit de contraste curate, reflexii chrome, lumini reci și o atmosferă care comunică
+            mister, statut și putere fără să fie nevoie de exces. Totul trebuie să pară nou, aspirational și memorabil.
+          </p>
+        </div>
+
+        <div class="identity-block">
+          <div class="visual-panel reveal"></div>
+
+          <div class="copy-panel reveal">
+            <div class="glass-card">
+              <h3>Un limbaj vizual clar</h3>
+              <p>
+                Identitatea Diamond’s unește eleganța întunericului cu strălucirea controlată a elementelor premium.
+                Diamantele, scenele, spotlight-urile, prezențele fashion și atmosfera VIP nu sunt simple decoruri,
+                ci parte dintr-o poveste coerentă despre exclusivitate și apartenență.
+              </p>
+            </div>
+
+            <div class="glass-card">
+              <h3>Un brand care se simte modern</h3>
+              <p>
+                Diamond’s nu urmărește un lux clasic, rigid. Direcția lui este una contemporană, curajoasă și cinematografică,
+                construită pentru generația care vrea să trăiască experiențe cu personalitate și să facă parte din evenimente
+                care devin reper social.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="experience">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="tag">Experiența</span>
+          <h2>Publicul nu cumpără doar acces. Cumpără sentimentul că face parte din ceva dorit.</h2>
+          <p>
+            Ceea ce diferențiază Diamond’s este felul în care transformă prezența la un eveniment într-o declarație de stil,
+            statut și energie. Totul este gândit pentru impact, de la primul vizual până la ultima impresie.
+          </p>
+        </div>
+
+        <div class="experience">
+          <div class="glass-card reveal">
+            <div class="experience-number">01</div>
+            <h3>Intrarea într-un univers</h3>
+            <p>
+              De la prima interacțiune, publicul trebuie să simtă că intră într-un spațiu diferit, construit cu grijă și
+              intenție. Atmosfera trebuie să spună imediat că Diamond’s nu este un eveniment obișnuit.
+            </p>
+          </div>
+
+          <div class="glass-card reveal">
+            <div class="experience-number">02</div>
+            <h3>O imagine care rămâne</h3>
+            <p>
+              Decorul, luminile, styling-ul și scena lucrează împreună pentru a crea cadre memorabile. Tot ceea ce se întâmplă
+              trebuie să aibă valoare vizuală și emoțională, atât live, cât și în social media.
+            </p>
+          </div>
+
+          <div class="glass-card reveal">
+            <div class="experience-number">03</div>
+            <h3>Exclusivitate reală</h3>
+            <p>
+              Diamond’s construiește experiențe în care invitații nu simt doar distracția, ci și apartenența la o comunitate
+              selectă. Acesta este punctul în care brandingul devine experiență.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-section" id="tickets">
+      <div class="container">
+        <div class="cta-box reveal">
+          <h2>Intră în universul Diamond’s.</h2>
+          <p>
+            Fiecare eveniment este creat pentru a lăsa o impresie care se simte dincolo de moment. Dacă vrei să fii parte
+            din următoarea experiență, locul tău începe de aici.
+          </p>
+          <a class="btn btn-primary" href="https://exemplu-bilete.ro" target="_blank" rel="noopener noreferrer">
+            Mergi la bilete
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-wrap">
+      <div>© 2026 Diamond’s. Toate drepturile rezervate.</div>
+      <div>Diamond’s — Momente șlefuite perfect</div>
+    </div>
+  </footer>
+
+  <script>
+    const menuBtn = document.getElementById("menuBtn");
+    const navLinks = document.getElementById("navLinks");
+
+    menuBtn.addEventListener("click", () => {
+      navLinks.classList.toggle("show");
+    });
+
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove("show");
+      });
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+        }
+      });
+    }, {
+      threshold: 0.15
+    });
+
+    document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
